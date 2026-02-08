@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuestra Historia 💖</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+    font-family:'Georgia', serif;
+    background:url('leofondo.jpg') center/cover no-repeat;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    transition:transform 1.5s ease;
+}
+body.zoom{ transform:scale(1.05); }
+
+.book{
+    position:relative;
+    width:950px;
+    height:580px;
+    perspective:2000px;
+}
+
+.page{
+    position:absolute;
+    inset:0;
+    background:rgba(255,255,255,0.95);
+    border-radius:25px;
+    padding:50px;
+    transform-origin:left;
+    transition:transform 1s ease;
+    backface-visibility:hidden;
+    display:none;
+}
+.page.active{ display:block; }
+.page.flip{ transform:rotateY(-180deg); }
+
+.content{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:40px;
+    height:100%;
+}
+
+.content img{
+    width:300px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    opacity:0;
+    transform:translateY(30px);
+    transition:all 1.5s ease;
+}
+.content img.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.text{
+    max-width:450px;
+    font-size:24px;
+    line-height:1.6;
+    color:#b30059;
+    white-space:pre-line;
+}
+
+/* CONTINUAR */
+.next-container{
+    position:absolute;
+    bottom:20px;
+    right:25px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+.continuar{
+    font-size:14px;
+    color:#b30059;
+    font-style:italic;
+}
+.next{
+    font-size:45px;
+    background:none;
+    border:none;
+    cursor:pointer;
+}
+
+/* FINAL */
+.final-question{
+    text-align:center;
+}
+.final-question h1{
+    font-size:42px;
+    color:#b30059;
+}
+.btn{
+    padding:15px 30px;
+    font-size:20px;
+    margin:10px;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+    position:relative;
+}
+.si{
+    background:#ff4d88;
+    color:white;
+    animation:glow 1.5s infinite alternate;
+}
+@keyframes glow{
+    from{box-shadow:0 0 10px #ff4d88;}
+    to{box-shadow:0 0 25px #ff99cc;}
+}
+.no{
+    background:#999;
+    color:white;
+    position:absolute;
+}
+
+/* MODAL */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.9);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+    color:white;
+    overflow:hidden;
+}
+.modal h1{
+    font-size:38px;
+    font-family:'Brush Script MT', cursive;
+    margin-bottom:30px;
+}
+
+.videos{
+    display:flex;
+    gap:30px;
+}
+.videos video{
+    width:280px;
+    border-radius:20px;
+    opacity:0;
+    transform:scale(0.6) translateY(40px);
+    transition:all 1.2s ease;
+}
+.videos video.show{
+    opacity:1;
+    transform:scale(1) translateY(0);
+}
+
+/* EXPLOSION */
+.explosion{
+    position:fixed;
+    width:20px;
+    height:20px;
+    background:radial-gradient(circle, #ff4d88, transparent);
+    border-radius:50%;
+    animation:explode 0.6s ease-out forwards;
+    pointer-events:none;
+}
+@keyframes explode{
+    to{transform:scale(25);opacity:0;}
+}
+
+/* CORAZONES */
+.heart{
+    position:fixed;
+    pointer-events:none;
+    animation:fall linear forwards;
+}
+@keyframes fall{
+    to{transform:translateY(100vh);opacity:0;}
+}
+
+/* FUEGOS */
+.firework{
+    position:fixed;
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:#fff;
+    animation:fire 1s ease-out forwards;
+}
+@keyframes fire{
+    to{
+        transform:translate(var(--x), var(--y));
+        opacity:0;
+    }
+}
+
+/* ===== RESPONSIVE MOVIL ===== */
+@media (max-width:768px){
+    body{
+        padding:10px;
+    }
+
+    .book{
+        width:100%;
+        height:95vh;
+    }
+
+    .page{
+        padding:20px;
+        border-radius:15px;
+    }
+
+    .content{
+        flex-direction:column;
+        gap:20px;
+        text-align:center;
+    }
+
+    .content img{
+        width:80%;
+        max-width:250px;
+    }
+
+    .text{
+        font-size:18px;
+        max-width:100%;
+    }
+
+    .next{
+        font-size:35px;
+    }
+
+    .final-question h1{
+        font-size:28px;
+    }
+
+    .btn{
+        font-size:16px;
+        padding:12px 22px;
+    }
+
+    .videos{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .videos video{
+        width:80%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+<source src="leomusic.mp3" type="audio/mpeg">
+</audio>
+
+<div class="book">
+
+<div class="page active">
+<div style="text-align:center;margin-top:200px;">
+<h2>Antes de iniciar, pulsa el play 💖</h2>
+<button onclick="startStory()">▶️</button>
+</div>
+</div>
+
+<script>
+for(let i=1;i<=5;i++){
+document.write(`
+<div class="page">
+<div class="content">
+<img src="leo${i}.png">
+<div id="text${i}" class="text"></div>
+</div>
+<div class="next-container">
+<span class="continuar">Presiona para continuar</span>
+<button class="next" onclick="nextPage()">❤️</button>
+</div>
+</div>
+`);
+}
+</script>
+
+<div class="page">
+<div class="final-question">
+<h1>¿QUIERES SER MI VALENTÍN? 💖</h1>
+<button class="btn si" onclick="showModal(event)">SI</button>
+<button class="btn no" id="noBtn">NO</button>
+</div>
+</div>
+
+</div>
+
+<div class="modal" id="modal">
+<h1>GRACIAS POR ARRIESGARTE CONMIGO,<br>TE AMO COMO NO TE IMAGINAS.</h1>
+<div class="videos">
+<video src="leovid2.mp4" autoplay loop muted></video>
+<video src="leovid1.mp4" autoplay loop muted></video>
+</div>
+</div>
+
+<script>
+const pages=document.querySelectorAll('.page');
+const music=document.getElementById("music");
+let current=0;
+
+function startStory(){ music.play(); flipPage(); }
+function nextPage(){ flipPage(); }
+
+function flipPage(){
+pages[current].classList.add('flip');
+setTimeout(()=>{
+pages[current].classList.remove('active','flip');
+current++;
+pages[current].classList.add('active');
+showContent();
+},1000);
+}
+
+const texts=[
+`Nunca he sido experto en el arte del romance,
+pero contigo no quiero quedarme a medias...`,
+
+`Desde el instante en que te miré,
+sentí que algo dentro de mí comenzó a correr hacia ti...`,
+
+`Mi vida entera correría tras de ti,
+porque en ti descubrí todo aquello que soñaba para siempre...`,
+
+`La vida te puso en mi camino por una razón...
+porque sé que lo nuestro apenas comienza.`,
+
+`Y aunque no crea demasiado en ciertas costumbres...
+necesito hacerte una pregunta.`
+];
+
+function showContent(){
+let img=pages[current].querySelector("img");
+let textEl=pages[current].querySelector(".text");
+if(img) setTimeout(()=>img.classList.add("show"),200);
+if(textEl) writeText(textEl,texts[current-1]);
+}
+
+function writeText(el,text){
+el.innerHTML="";
+let i=0;
+function typing(){
+if(i<text.length){
+el.innerHTML+=text.charAt(i);
+i++;
+setTimeout(typing,30);
+}}
+typing();
+}
+
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",()=>{
+noBtn.style.top=Math.random()*400+"px";
+noBtn.style.left=Math.random()*700+"px";
+});
+
+function showModal(e){
+document.body.classList.add("zoom");
+const modal=document.getElementById("modal");
+modal.style.display="flex";
+
+let explosion=document.createElement("div");
+explosion.className="explosion";
+explosion.style.left=e.clientX+"px";
+explosion.style.top=e.clientY+"px";
+document.body.appendChild(explosion);
+setTimeout(()=>explosion.remove(),600);
+
+for(let i=0;i<80;i++){
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*25+15)+"px";
+heart.style.animationDuration=(Math.random()*3+2)+"s";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),5000);
+}
+
+for(let i=0;i<40;i++){
+let fw=document.createElement("div");
+fw.className="firework";
+fw.style.left=e.clientX+"px";
+fw.style.top=e.clientY+"px";
+fw.style.setProperty('--x',(Math.random()*400-200)+"px");
+fw.style.setProperty('--y',(Math.random()*400-200)+"px");
+document.body.appendChild(fw);
+setTimeout(()=>fw.remove(),1000);
+}
+
+const videos=modal.querySelectorAll("video");
+videos.forEach((v,i)=>{
+setTimeout(()=>v.classList.add("show"),600+(i*300));
+});
+}
+</script>
+
+</body>
+</html>
