@@ -5,11 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nuestra Historia 💖</title>
 
+<!-- PREVIEW WHATSAPP -->
+<meta property="og:title" content="Para ti 💖">
+<meta property="og:description" content="Una historia que escribí para ti…">
+<meta property="og:image" content="leo1.png">
+
 <style>
 body{
     margin:0;
-    height:100vh;
-    overflow:hidden;
+    min-height:100vh;
+    overflow-x:hidden;
+    overflow-y:auto;
     font-family:'Georgia', serif;
     background:url('leofondo.jpg') center/cover no-repeat;
     display:flex;
@@ -31,11 +37,12 @@ body.zoom{ transform:scale(1.05); }
     inset:0;
     background:rgba(255,255,255,0.95);
     border-radius:25px;
-    padding:50px;
+    padding:40px;
     transform-origin:left;
     transition:transform 1s ease;
     backface-visibility:hidden;
     display:none;
+    overflow-y:auto;
 }
 .page.active{ display:block; }
 .page.flip{ transform:rotateY(-180deg); }
@@ -44,8 +51,8 @@ body.zoom{ transform:scale(1.05); }
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:40px;
-    height:100%;
+    gap:30px;
+    height:auto;
 }
 
 .content img{
@@ -63,18 +70,19 @@ body.zoom{ transform:scale(1.05); }
 
 .text{
     max-width:450px;
-    font-size:24px;
+    font-size:22px;
     line-height:1.6;
     color:#b30059;
     white-space:pre-line;
+    padding-bottom:80px;
 }
 
 /* CONTINUAR */
 .next-container{
-    position:absolute;
-    bottom:20px;
-    right:25px;
+    position:sticky;
+    bottom:10px;
     display:flex;
+    justify-content:flex-end;
     align-items:center;
     gap:10px;
 }
@@ -84,7 +92,7 @@ body.zoom{ transform:scale(1.05); }
     font-style:italic;
 }
 .next{
-    font-size:45px;
+    font-size:40px;
     background:none;
     border:none;
     cursor:pointer;
@@ -95,7 +103,7 @@ body.zoom{ transform:scale(1.05); }
     text-align:center;
 }
 .final-question h1{
-    font-size:42px;
+    font-size:36px;
     color:#b30059;
 }
 .btn{
@@ -136,17 +144,17 @@ body.zoom{ transform:scale(1.05); }
     overflow:hidden;
 }
 .modal h1{
-    font-size:38px;
+    font-size:32px;
     font-family:'Brush Script MT', cursive;
     margin-bottom:30px;
 }
 
 .videos{
     display:flex;
-    gap:30px;
+    gap:20px;
 }
 .videos video{
-    width:280px;
+    width:260px;
     border-radius:20px;
     opacity:0;
     transform:scale(0.6) translateY(40px);
@@ -157,7 +165,7 @@ body.zoom{ transform:scale(1.05); }
     transform:scale(1) translateY(0);
 }
 
-/* EXPLOSION */
+/* EFECTOS */
 .explosion{
     position:fixed;
     width:20px;
@@ -171,7 +179,6 @@ body.zoom{ transform:scale(1.05); }
     to{transform:scale(25);opacity:0;}
 }
 
-/* CORAZONES */
 .heart{
     position:fixed;
     pointer-events:none;
@@ -181,7 +188,6 @@ body.zoom{ transform:scale(1.05); }
     to{transform:translateY(100vh);opacity:0;}
 }
 
-/* FUEGOS */
 .firework{
     position:fixed;
     width:5px;
@@ -197,12 +203,8 @@ body.zoom{ transform:scale(1.05); }
     }
 }
 
-/* ===== RESPONSIVE MOVIL ===== */
+/* RESPONSIVE */
 @media (max-width:768px){
-    body{
-        padding:10px;
-    }
-
     .book{
         width:100%;
         height:95vh;
@@ -210,41 +212,24 @@ body.zoom{ transform:scale(1.05); }
 
     .page{
         padding:20px;
-        border-radius:15px;
     }
 
     .content{
         flex-direction:column;
-        gap:20px;
         text-align:center;
     }
 
     .content img{
         width:80%;
-        max-width:250px;
+        max-width:240px;
     }
 
     .text{
         font-size:18px;
-        max-width:100%;
-    }
-
-    .next{
-        font-size:35px;
-    }
-
-    .final-question h1{
-        font-size:28px;
-    }
-
-    .btn{
-        font-size:16px;
-        padding:12px 22px;
     }
 
     .videos{
         flex-direction:column;
-        gap:15px;
     }
 
     .videos video{
@@ -263,7 +248,7 @@ body.zoom{ transform:scale(1.05); }
 <div class="book">
 
 <div class="page active">
-<div style="text-align:center;margin-top:200px;">
+<div style="text-align:center;margin-top:150px;">
 <h2>Antes de iniciar, pulsa el play 💖</h2>
 <button onclick="startStory()">▶️</button>
 </div>
@@ -275,7 +260,7 @@ document.write(`
 <div class="page">
 <div class="content">
 <img src="leo${i}.png">
-<div id="text${i}" class="text"></div>
+<div class="text"></div>
 </div>
 <div class="next-container">
 <span class="continuar">Presiona para continuar</span>
@@ -309,7 +294,11 @@ const pages=document.querySelectorAll('.page');
 const music=document.getElementById("music");
 let current=0;
 
-function startStory(){ music.play(); flipPage(); }
+function startStory(){
+  music.play().catch(()=>{});
+  flipPage();
+}
+
 function nextPage(){ flipPage(); }
 
 function flipPage(){
@@ -324,18 +313,29 @@ showContent();
 
 const texts=[
 `Nunca he sido experto en el arte del romance,
-pero contigo no quiero quedarme a medias...`,
+pero contigo no quiero quedarme a medias.
+Porque cuando pienso en ti,
+las palabras se acomodan solas…
+y en mi mente, todo se vuelve poesía.`,
 
 `Desde el instante en que te miré,
-sentí que algo dentro de mí comenzó a correr hacia ti...`,
+sentí que algo dentro de mí comenzó a correr hacia ti.
+Mi mente ya no encontraba descanso,
+porque cada pensamiento llevaba tu nombre.
+Mi corazón latía distinto… más fuerte, más vivo.`,
 
 `Mi vida entera correría tras de ti,
-porque en ti descubrí todo aquello que soñaba para siempre...`,
+porque en ti descubrí todo aquello que soñaba para siempre.
+Y aunque mis miedos eran muchos,
+por ti valía la pena enfrentarlos.`,
 
-`La vida te puso en mi camino por una razón...
-porque sé que lo nuestro apenas comienza.`,
+`La vida te puso en mi camino por una razón.
+Y aunque hoy no podamos estar juntos,
+no dejo de imaginar todo lo que construiremos.`,
 
-`Y aunque no crea demasiado en ciertas costumbres...
+`Y aunque no sea el romántico empedernido,
+quiero darte todo lo que hay en mí.
+Con el corazón en la mano,
 necesito hacerte una pregunta.`
 ];
 
@@ -360,8 +360,8 @@ typing();
 
 const noBtn=document.getElementById("noBtn");
 noBtn.addEventListener("mouseover",()=>{
-noBtn.style.top=Math.random()*400+"px";
-noBtn.style.left=Math.random()*700+"px";
+noBtn.style.top=Math.random()*200+"px";
+noBtn.style.left=Math.random()*200+"px";
 });
 
 function showModal(e){
@@ -376,7 +376,7 @@ explosion.style.top=e.clientY+"px";
 document.body.appendChild(explosion);
 setTimeout(()=>explosion.remove(),600);
 
-for(let i=0;i<80;i++){
+for(let i=0;i<50;i++){
 let heart=document.createElement("div");
 heart.className="heart";
 heart.innerHTML="❤️";
@@ -387,13 +387,13 @@ document.body.appendChild(heart);
 setTimeout(()=>heart.remove(),5000);
 }
 
-for(let i=0;i<40;i++){
+for(let i=0;i<30;i++){
 let fw=document.createElement("div");
 fw.className="firework";
 fw.style.left=e.clientX+"px";
 fw.style.top=e.clientY+"px";
-fw.style.setProperty('--x',(Math.random()*400-200)+"px");
-fw.style.setProperty('--y',(Math.random()*400-200)+"px");
+fw.style.setProperty('--x',(Math.random()*300-150)+"px");
+fw.style.setProperty('--y',(Math.random()*300-150)+"px");
 document.body.appendChild(fw);
 setTimeout(()=>fw.remove(),1000);
 }
