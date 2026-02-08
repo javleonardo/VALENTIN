@@ -8,233 +8,161 @@
 <!-- PREVIEW WHATSAPP -->
 <meta property="og:title" content="Para ti 💖">
 <meta property="og:description" content="Una historia que escribí para ti…">
-<meta property="og:image" content="leo1.png">
+<meta property="og:image" content="https://javleonardo.github.io/VALENTIN/leo1.png">
 
 <style>
 body{
-    margin:0;
-    min-height:100vh;
-    overflow-x:hidden;
-    overflow-y:auto;
-    font-family:'Georgia', serif;
-    background:url('leofondo.jpg') center/cover no-repeat;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    transition:transform 1.5s ease;
+margin:0;
+font-family:'Georgia', serif;
+background:url('leofondo.jpg') center/cover no-repeat fixed;
+min-height:100vh;
 }
-body.zoom{ transform:scale(1.05); }
 
 .book{
-    position:relative;
-    width:950px;
-    height:580px;
-    perspective:2000px;
+max-width:950px;
+margin:auto;
+padding:10px;
 }
 
 .page{
-    position:absolute;
-    inset:0;
-    background:rgba(255,255,255,0.95);
-    border-radius:25px;
-    padding:40px;
-    transform-origin:left;
-    transition:transform 1s ease;
-    backface-visibility:hidden;
-    display:none;
-    overflow-y:auto;
+background:rgba(255,255,255,0.95);
+border-radius:20px;
+padding:20px;
+display:none;
+min-height:90vh;
 }
-.page.active{ display:block; }
-.page.flip{ transform:rotateY(-180deg); }
+
+.page.active{display:block;}
 
 .content{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:30px;
-    height:auto;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+align-items:center;
+gap:20px;
 }
 
 .content img{
-    width:300px;
-    border-radius:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.3);
-    opacity:0;
-    transform:translateY(30px);
-    transition:all 1.5s ease;
+width:280px;
+max-width:90%;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+opacity:0;
+transform:translateY(30px);
+transition:all 1s ease;
 }
+
 .content img.show{
-    opacity:1;
-    transform:translateY(0);
+opacity:1;
+transform:translateY(0);
 }
 
 .text{
-    max-width:450px;
-    font-size:22px;
-    line-height:1.6;
-    color:#b30059;
-    white-space:pre-line;
-    padding-bottom:80px;
+max-width:450px;
+font-size:20px;
+line-height:1.6;
+color:#b30059;
+white-space:pre-line;
 }
 
-/* CONTINUAR */
 .next-container{
-    position:sticky;
-    bottom:10px;
-    display:flex;
-    justify-content:flex-end;
-    align-items:center;
-    gap:10px;
-}
-.continuar{
-    font-size:14px;
-    color:#b30059;
-    font-style:italic;
-}
-.next{
-    font-size:40px;
-    background:none;
-    border:none;
-    cursor:pointer;
+text-align:right;
+margin-top:20px;
 }
 
-/* FINAL */
+.continuar{
+font-size:14px;
+color:#b30059;
+font-style:italic;
+}
+
+.next{
+font-size:40px;
+background:none;
+border:none;
+cursor:pointer;
+}
+
 .final-question{
-    text-align:center;
+text-align:center;
+margin-top:100px;
 }
+
 .final-question h1{
-    font-size:36px;
-    color:#b30059;
+color:#b30059;
+font-size:32px;
 }
+
 .btn{
-    padding:15px 30px;
-    font-size:20px;
-    margin:10px;
-    border:none;
-    border-radius:25px;
-    cursor:pointer;
-    position:relative;
+padding:15px 30px;
+font-size:20px;
+margin:10px;
+border:none;
+border-radius:25px;
+cursor:pointer;
 }
+
 .si{
-    background:#ff4d88;
-    color:white;
-    animation:glow 1.5s infinite alternate;
+background:#ff4d88;
+color:white;
+animation:glow 1.5s infinite alternate;
 }
+
 @keyframes glow{
-    from{box-shadow:0 0 10px #ff4d88;}
-    to{box-shadow:0 0 25px #ff99cc;}
+from{box-shadow:0 0 10px #ff4d88;}
+to{box-shadow:0 0 25px #ff99cc;}
 }
+
 .no{
-    background:#999;
-    color:white;
-    position:absolute;
+background:#999;
+color:white;
+position:absolute;
 }
 
 /* MODAL */
 .modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.9);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    text-align:center;
-    color:white;
-    overflow:hidden;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.9);
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+color:white;
+padding:20px;
 }
+
 .modal h1{
-    font-size:32px;
-    font-family:'Brush Script MT', cursive;
-    margin-bottom:30px;
+font-size:28px;
+margin-bottom:20px;
 }
 
 .videos{
-    display:flex;
-    gap:20px;
+display:flex;
+flex-wrap:wrap;
+gap:15px;
+justify-content:center;
 }
+
 .videos video{
-    width:260px;
-    border-radius:20px;
-    opacity:0;
-    transform:scale(0.6) translateY(40px);
-    transition:all 1.2s ease;
+width:260px;
+max-width:90%;
+border-radius:15px;
+opacity:0;
+transform:scale(0.7);
+transition:1s;
 }
+
 .videos video.show{
-    opacity:1;
-    transform:scale(1) translateY(0);
-}
-
-/* EFECTOS */
-.explosion{
-    position:fixed;
-    width:20px;
-    height:20px;
-    background:radial-gradient(circle, #ff4d88, transparent);
-    border-radius:50%;
-    animation:explode 0.6s ease-out forwards;
-    pointer-events:none;
-}
-@keyframes explode{
-    to{transform:scale(25);opacity:0;}
-}
-
-.heart{
-    position:fixed;
-    pointer-events:none;
-    animation:fall linear forwards;
-}
-@keyframes fall{
-    to{transform:translateY(100vh);opacity:0;}
-}
-
-.firework{
-    position:fixed;
-    width:5px;
-    height:5px;
-    border-radius:50%;
-    background:#fff;
-    animation:fire 1s ease-out forwards;
-}
-@keyframes fire{
-    to{
-        transform:translate(var(--x), var(--y));
-        opacity:0;
-    }
+opacity:1;
+transform:scale(1);
 }
 
 /* RESPONSIVE */
-@media (max-width:768px){
-    .book{
-        width:100%;
-        height:95vh;
-    }
-
-    .page{
-        padding:20px;
-    }
-
-    .content{
-        flex-direction:column;
-        text-align:center;
-    }
-
-    .content img{
-        width:80%;
-        max-width:240px;
-    }
-
-    .text{
-        font-size:18px;
-    }
-
-    .videos{
-        flex-direction:column;
-    }
-
-    .videos video{
-        width:80%;
-    }
+@media(max-width:600px){
+.text{font-size:18px;}
+.final-question h1{font-size:26px;}
 }
 </style>
 </head>
@@ -242,7 +170,7 @@ body.zoom{ transform:scale(1.05); }
 <body>
 
 <audio id="music" loop>
-<source src="leomusic.mp3" type="audio/mpeg">
+<source src="leomusic.MP3" type="audio/mpeg">
 </audio>
 
 <div class="book">
@@ -250,7 +178,7 @@ body.zoom{ transform:scale(1.05); }
 <div class="page active">
 <div style="text-align:center;margin-top:150px;">
 <h2>Antes de iniciar, pulsa el play 💖</h2>
-<button onclick="startStory()">▶️</button>
+<button onclick="startStory()" style="font-size:30px;">▶️</button>
 </div>
 </div>
 
@@ -295,20 +223,17 @@ const music=document.getElementById("music");
 let current=0;
 
 function startStory(){
-  music.play().catch(()=>{});
-  flipPage();
+music.play();
+flipPage();
 }
 
 function nextPage(){ flipPage(); }
 
 function flipPage(){
-pages[current].classList.add('flip');
-setTimeout(()=>{
-pages[current].classList.remove('active','flip');
+pages[current].classList.remove('active');
 current++;
 pages[current].classList.add('active');
 showContent();
-},1000);
 }
 
 const texts=[
@@ -360,43 +285,13 @@ typing();
 
 const noBtn=document.getElementById("noBtn");
 noBtn.addEventListener("mouseover",()=>{
-noBtn.style.top=Math.random()*200+"px";
-noBtn.style.left=Math.random()*200+"px";
+noBtn.style.top=Math.random()*300+"px";
+noBtn.style.left=Math.random()*300+"px";
 });
 
 function showModal(e){
-document.body.classList.add("zoom");
 const modal=document.getElementById("modal");
 modal.style.display="flex";
-
-let explosion=document.createElement("div");
-explosion.className="explosion";
-explosion.style.left=e.clientX+"px";
-explosion.style.top=e.clientY+"px";
-document.body.appendChild(explosion);
-setTimeout(()=>explosion.remove(),600);
-
-for(let i=0;i<50;i++){
-let heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="❤️";
-heart.style.left=Math.random()*100+"vw";
-heart.style.fontSize=(Math.random()*25+15)+"px";
-heart.style.animationDuration=(Math.random()*3+2)+"s";
-document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),5000);
-}
-
-for(let i=0;i<30;i++){
-let fw=document.createElement("div");
-fw.className="firework";
-fw.style.left=e.clientX+"px";
-fw.style.top=e.clientY+"px";
-fw.style.setProperty('--x',(Math.random()*300-150)+"px");
-fw.style.setProperty('--y',(Math.random()*300-150)+"px");
-document.body.appendChild(fw);
-setTimeout(()=>fw.remove(),1000);
-}
 
 const videos=modal.querySelectorAll("video");
 videos.forEach((v,i)=>{
